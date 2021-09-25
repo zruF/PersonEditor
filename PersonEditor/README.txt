@@ -3,7 +3,7 @@ Anmerkungen:
 ~~
 
 In PersonRepository.cs bin ich zB noch etwas unzufrieden mit dem Update und dem Löschen. Normalerweise sollte die Addresse mit der Person mitgelöscht werden und beim Update
-die Addresse mit der Person gespeichert werden.
+die Addresse mit der Person gespeichert werden. Es werden aber jeweils einzelne Aufrufe für die Addresse getätigt, die man sich optimalerweise sparen kann.
 
 Ich habe grundlegend mal eine Testklasse angelegt, welche die Get-Route testet. Für weitere Tests fehlt mir leider die Zeit.
 Außerdem könnte man PersonControllerTests.BeforeEach() noch in eine weitere Klasse auslagern, von der mehrere Testklassen erben könnten.
