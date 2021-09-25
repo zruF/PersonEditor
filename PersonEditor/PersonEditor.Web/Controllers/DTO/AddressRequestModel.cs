@@ -7,7 +7,7 @@ namespace PersonEditor.Web.Controllers.DTO
         [Required]
         public string City { get; set; }
 
-        [Required]
+        [Required, Range(100, 1000000000)]
         public int PostalCode { get; set; }
 
         [Required]

@@ -17,6 +17,8 @@ namespace PersonEditor.Model.Entities
 
         public string Street { get; set; }
 
+        public Person Person { get; set; }
+
         public Address(string city, int postalCode, string country, string street)
         {
             City = city;

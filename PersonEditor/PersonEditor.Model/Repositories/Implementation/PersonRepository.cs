@@ -4,6 +4,7 @@ using PersonEditor.Model.Context;
 using System.Linq;
 using PersonEditor.Model.Exceptions;
 using System;
+using Microsoft.EntityFrameworkCore;
 
 namespace PersonAPI.Model.Repositories
 {
@@ -11,14 +12,14 @@ namespace PersonAPI.Model.Repositories
     {
         private DataContext _dataContext;
 
-        internal PersonRepository(DataContext dataContext)
+        public PersonRepository(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
         public Person GetPerson(Guid id)
         {
-            var person = _dataContext.Persons.FirstOrDefault(p => p.Id == id);
+            var person = _dataContext.Persons.Include(p => p.Address).FirstOrDefault(p => p.Id == id);
 
             if(person == null)
             {
@@ -39,7 +40,7 @@ namespace PersonAPI.Model.Repositories
 
         public void DeletePerson(Guid id)
         {
-            var person = _dataContext.Persons.FirstOrDefault(p => p.Id == id);
+            var person = _dataContext.Persons.Include(p => p.Address).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
             {
@@ -48,40 +49,45 @@ namespace PersonAPI.Model.Repositories
 
             try
             {
+                _dataContext.Addresses.Remove(person.Address);
+
                 _dataContext.Persons.Remove(person);
+
+                _dataContext.SaveChanges();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 throw;
             }
-
-            _dataContext.SaveChanges();
         }
 
         public Person UpdatePerson(Guid id, Person personToUpdate)
         {
-            var person = _dataContext.Persons.FirstOrDefault(p => p.Id == id);
+            var person = _dataContext.Persons.Include(p => p.Address).FirstOrDefault(p => p.Id == id);
 
             if (person == null)
             {
                 throw new PersonNotFoundException();
             }
 
-            personToUpdate.Id = id;
+            personToUpdate.Id = person.Id;
 
-            var address = _dataContext.Addresses.FirstOrDefault(a => a.AddressId == person.AddressId);
+            personToUpdate.AddressId = person.AddressId;
 
-            personToUpdate.AddressId = address.AddressId;
+            personToUpdate.Address.AddressId = person.Address.AddressId;
 
-            personToUpdate.Address.AddressId = address.AddressId;
+            try
+            {
+                _dataContext.Entry(person.Address).CurrentValues.SetValues(personToUpdate.Address);
 
-            _dataContext.Entry(address).CurrentValues.SetValues(personToUpdate.Address);
+                _dataContext.Entry(person).CurrentValues.SetValues(personToUpdate);
 
-            _dataContext.Entry(person).CurrentValues.SetValues(personToUpdate);
-
-            _dataContext.SaveChanges();
-
-            personToUpdate.Address = address;
+                _dataContext.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
             return person;
         }

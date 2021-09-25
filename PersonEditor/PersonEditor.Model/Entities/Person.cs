@@ -21,7 +21,7 @@ namespace PersonEditor.Model.Entities
         [ForeignKey("Address")]
         public Guid AddressId { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         public Person(string name, string lastName, DateTime birthday, Gender gender, Address address)
         {

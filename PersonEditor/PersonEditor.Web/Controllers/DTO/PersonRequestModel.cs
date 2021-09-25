@@ -15,7 +15,7 @@ namespace PersonEditor.Web.Controllers.DTO
         [Required]
         public DateTime Birthday { get; set; }
 
-        [Required]
+        [GenderValidation(ErrorMessage = "Gender is not valid")]
         public Gender Gender { get; set; }
 
         [Required]

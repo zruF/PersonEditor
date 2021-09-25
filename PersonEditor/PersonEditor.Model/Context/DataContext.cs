@@ -20,6 +20,12 @@ namespace PersonEditor.Model.Context
             PathToDB = $@"{folder}\Database\Person.db";
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Person>()
+                .HasOne(p => p.Address);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlite($"Data Source={PathToDB}");
     }

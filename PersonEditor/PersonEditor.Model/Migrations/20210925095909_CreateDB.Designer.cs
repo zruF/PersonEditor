@@ -9,7 +9,7 @@ using PersonEditor.Model.Context;
 namespace PersonEditor.Model.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210925073036_CreateDB")]
+    [Migration("20210925095909_CreateDB")]
     partial class CreateDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
