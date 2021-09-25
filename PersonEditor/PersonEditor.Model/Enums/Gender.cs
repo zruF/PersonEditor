@@ -4,7 +4,7 @@
     {
         Female = 1,
         Male = 2,
-        Divers = 4,
-        ApacheHelicopter = 8
+        Divers = 3,
+        ApacheHelicopter = 4
     }
 }
