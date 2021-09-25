@@ -18,10 +18,11 @@ Die Option, dass eine Person mehrere Addressen haben kann wäre natürlich schö
 
 Fazit:
 
-Mir ist bewusst, dass dies kein "perfektes" Projekt ist. Man kann an manchen Stellen noch einiges ergänzen und verbessern, aber dafür reicht mir die Zeit leider nicht.
+~~
+
+Man kann an oben genannten Stellen noch manches ergänzen und verbessern, aber dafür reicht mir die Zeit leider nicht.
 Ich hoffe, dass der Rahmen des Projektes in euren Vorstellungen liegt und ihr euch eine genauere Einschätzung von meinem technischen Wissen einholen könnt.
 
-
-
+~~
 
 
